@@ -34,3 +34,12 @@ http://stackoverflow.com/questions/20167411/how-to-compile-a-kernel-module-for-r
 BASIC STEPS FOR OS FROM SCRATCH
 
 http://rpidev.wordpress.com/
+
+useful commands when debugging kernel modules
+====================
+
+dmesg | tail: show the last results of printk() from kernel modules
+
+insmod <modulename>.ko
+
+rmmod

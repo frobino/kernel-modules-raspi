@@ -1,2 +1,49 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% HW related details:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+GPIO16 to control the led, active low
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Before running the makefile, set the cross-compiler:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 export CCPREFIX=/home/osso/isomount/Linux_tools/raspberry/toolchain/tools/arm-bcm2708/arm-bcm2708-linux-gnueabi/bin/bcm2708-
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% How to "manually" drive the LEDG0 on the raspi board:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+export PT=/sys/class/leds/led0/trigger
+
+echo none > PT
+
+%% turn off/on
+
+echo 0 > /sys/class/leds/led0/brightness
+echo 1 > /sys/class/leds/led0/brightness
+
+%% default
+
+echo mmc0 > PT
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% use a pre-compiled module to drive the led:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+modprobe ledtrig_heartbeat
+echo heartbeat > PT
+%% the description of the ledtrig_heartbeat module can be found in the kernel sources:
+%% linux/drivers/leds/trigger/ledtrig-heartbeat.c
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% IMPORTANT: 
+%% before running your own module driving the led, you MUST 
+%% remove any other running module driving the led.
+%% In case of raspbian:
+
+rmmod leds_gpio
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
