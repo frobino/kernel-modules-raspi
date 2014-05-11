@@ -43,3 +43,14 @@ dmesg | tail: show the last results of printk() from kernel modules
 insmod <modulename>.ko
 
 rmmod
+
+create your own OS
+====================
+
+http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/
+
+very fun, very low level. This source does not explain how to mount/unmount device drivers, 
+but it explains how to write the assembly and how to create from it a C function that can be 
+used in the kernel modules we are develping! Try to mix this tutorial with the other LED ON/OFF 
+with timer tutorial! Instead of using the provided kernel functions (timer, etc.) make your own! 
+So we can make a comparison using linux provided gpio_set_value and jiffies timer.
