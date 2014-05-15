@@ -5,7 +5,7 @@
 #include <linux/init.h>
 #include <linux/gpio.h>
 
-#define LED1 LED0 
+#define LED1 16 
 
 static struct timer_list blink_timer;
 

@@ -44,6 +44,10 @@ echo heartbeat > PT
 
 rmmod leds_gpio
 
+%% then you can load our new module
+
+insmod LEDG0_timer.ko
+
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

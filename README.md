@@ -54,3 +54,11 @@ but it explains how to write the assembly and how to create from it a C function
 used in the kernel modules we are develping! Try to mix this tutorial with the other LED ON/OFF 
 with timer tutorial! Instead of using the provided kernel functions (timer, etc.) make your own! 
 So we can make a comparison using linux provided gpio_set_value and jiffies timer.
+
+Same things can be done in low level C:
+http://www.valvers.com/embedded-linux/raspberry-pi/step01-bare-metal-programming-in-cpt1
+
+However, we cannot insert these C functions directly in the kernel module.
+We need to use ioremap:
+http://www.raspberrypi.org/forums/viewtopic.php?f=44&t=8690&p=170701
+https://groups.google.com/forum/#!topic/beagleboard/rR8ww8fI3ms
