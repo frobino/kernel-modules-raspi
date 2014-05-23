@@ -12,11 +12,13 @@
 #define LED1 16 
 
 /** The base address of the GPIO peripheral (ARM Physical Address) */
-//#define GPIO_BASE       0x20200000UL // Physical address
-#define GPIO_BASE	0x7E200000UL
+#define GPIO_BASE       0x20200000UL // Physical address
+//#define GPIO_BASE	0x7E200000UL // Virtual address
 #define GPIO_GPCLR0     10
+#define GPIO_GPFSEL1    1
 /** GPIO Register set */
-//volatile unsigned int* gpio;
+
+volatile unsigned int* gpio;
 void __iomem *base;
 
 static struct timer_list blink_timer;
@@ -28,7 +30,10 @@ static void blink_timer_func(unsigned long data)
 {
 printk(KERN_INFO "%s\n", __func__);
 
-*(int *)((char *)base + GPIO_GPCLR0) = data;
+//*(int *)((char *)base + GPIO_GPCLR0) = data;
+
+/* Set the GPIO16 output low ( Turn OK LED on )*/
+gpio[GPIO_GPCLR0] = (1 << 16);
 
 /* schedule next execution */
 blink_timer.data = !data;	// makes the LED toggle
@@ -45,10 +50,6 @@ int ret = 0;
 
 printk(KERN_INFO "%s\n", __func__);
 
-//int j, tmp, val;
-//void __iomem *base;
-//volatile unsigned long *ptr;
-  
 if (!request_mem_region(GPIO_BASE, 1024, "gpio-test")) {
     printk(KERN_ERR "request_mem_region failed");
     ret = 1;
@@ -62,6 +63,13 @@ if (!base) {
     return ret;
   } 
 
+// get the pointer to gpio
+gpio = (volatile unsigned int *)base;  
+// Now,we will be able to use the memory-mapped gpio register to configure the GPIO Pins as Input or Output.
+
+/* Write 1 to the GPIO16 init nibble in the Function Select 1 GPIO
+       peripheral register to enable GPIO16 as an output */
+gpio[GPIO_GPFSEL1] |= (1 << 18);
 
 /* init timer, add timer function */
 init_timer(&blink_timer);
