@@ -1,0 +1,2 @@
+export CCPREFIX=/home/osso/isomount/Linux_tools/raspberry/toolchain/tools/arm-bcm2708/arm-bcm2708-linux-gnueabi/bin/bcm2708-
+

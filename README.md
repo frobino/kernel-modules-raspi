@@ -60,5 +60,8 @@ http://www.valvers.com/embedded-linux/raspberry-pi/step01-bare-metal-programming
 
 However, we cannot insert these C functions directly in the kernel module.
 We need to use ioremap:
-http://www.raspberrypi.org/forums/viewtopic.php?f=44&t=8690&p=170701
-https://groups.google.com/forum/#!topic/beagleboard/rR8ww8fI3ms
+http://www.raspberrypi.org/forums/viewtopic.php?f=44&t=8690&p=170701 
+https://groups.google.com/forum/#!topic/beagleboard/rR8ww8fI3ms 
+http://93.93.128.176/forums/viewtopic.php?t=22738&p=213886 
+http://blogsmayan.blogspot.se/p/programming-interrupts-in-raspberry-pi.html
+
