@@ -65,3 +65,6 @@ https://groups.google.com/forum/#!topic/beagleboard/rR8ww8fI3ms
 http://93.93.128.176/forums/viewtopic.php?t=22738&p=213886 
 http://blogsmayan.blogspot.se/p/programming-interrupts-in-raspberry-pi.html
 
+Interesting tutorials to create device drivers (not exclusively for raspi)
+====================
+http://free-electrons.com/doc/training/linux-kernel/

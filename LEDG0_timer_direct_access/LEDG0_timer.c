@@ -14,6 +14,8 @@
 /** The base address of the GPIO peripheral (ARM Physical Address) */
 #define GPIO_BASE       0x20200000UL // Physical address
 //#define GPIO_BASE	0x7E200000UL // Virtual address
+/* From page 90 manual, gpioclr0 is at row 10, gpset0 row 7*/
+#define GPIO_GPSET0	7
 #define GPIO_GPCLR0     10
 #define GPIO_GPFSEL1    1
 /** GPIO Register set */
@@ -30,11 +32,15 @@ static void blink_timer_func(unsigned long data)
 {
 printk(KERN_INFO "%s\n", __func__);
 
-//*(int *)((char *)base + GPIO_GPCLR0) = data;
-
-/* Set the GPIO16 output low ( Turn OK LED on )*/
-gpio[GPIO_GPCLR0] = (1 << 16);
-
+if (!data) {
+  /* Set the GPIO16 (pin number 16) output low ( Turn OK LED on )*/
+  gpio[GPIO_GPCLR0] = (1 << 16);
+  }
+else {
+  /* Set the GPIO16 (pin number 16) output high ( Turn OK LED off )*/
+  gpio[GPIO_GPSET0] = (1 << 16);
+  }
+  
 /* schedule next execution */
 blink_timer.data = !data;	// makes the LED toggle
 blink_timer.expires = jiffies + (1*HZ); // 1 sec.
@@ -68,7 +74,10 @@ gpio = (volatile unsigned int *)base;
 // Now,we will be able to use the memory-mapped gpio register to configure the GPIO Pins as Input or Output.
 
 /* Write 1 to the GPIO16 init nibble in the Function Select 1 GPIO
-       peripheral register to enable GPIO16 as an output */
+   peripheral register to enable GPIO16 as an output. 
+   See page 90 manual,     
+   bits 18 to 20 in the ‘GPIO Function Select 1′ (GPFSEL1) register control the GPIO16 pin.
+*/
 gpio[GPIO_GPFSEL1] |= (1 << 18);
 
 /* init timer, add timer function */
